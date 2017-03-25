@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  {% load staticfiles %}
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="{% static 'adoptApetApp/js/jquery.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'adoptApetApp/css/bootstrap.min.css' %}" type="text/css"/>
+  <script type="text/javascript" src="{% static 'adoptApetApp/js/bootstrap.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'adoptApetApp/mycss/home.css' %}" type="text/css"/>
+  <title>Myprofile</title>
+
+</head>
+<body>
+
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" a href="">Adopt Pet</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="../adoptApetApp/"
+          <i class="glyphicon glyphicon-home"></i></a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Pets <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Dogs</a></li>
+              <li><a href="#">Bunnies</a></li>
+              <li><a href="#">Cats</a></li>
+              <li><a href="#">Birds</a></li>
+              <li><a href="#">Turtles</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Needs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Medical Attention</a></li>
+              <li><a href="#">Shelters</a></li>
+              <li><a href="#">Accessory</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="../adoptApetApp/createMessage">Create Message</a></li>
+              <li><a href="../adoptApetApp/dialogues">Dialogues</a></li>
+            </ul>
+          </li>
+        </ul>
+
+
+
+
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <a href="../adoptApetApp/Profile">Welcome {{user}}</a>
+          <a href="../adoptApetApp/logout"  class="btn btn-warning">Logout</a>
+          {%else%}
+          <li><a href="../adoptApetApp/signUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog">
+              <div class="loginmodal-container">
+                <h1>Login to Your Account</h1><br>
+                <form method="POST" action="../adoptApetApp/">
+                  {% csrf_token %}
+                  <input type="text" name="user" placeholder="Username">
+                  <input type="password" name="password" placeholder="Password">
+                  <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+
+                </form>
+                <div class="login-help">
+                  <a href="#">Forgot Password</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </ul>
+        {%endif%}
+        <form class="navbar-form navbar-left">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </nav>
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ fname }}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-3 col-lg-3 " align="center">
+                <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+
+                {% if user.is_authenticated %}
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>user Name:</td>
+                        <td>{{ user }} </td>
+                      </tr>
+                      <tr>
+                        <td>First Name:</td>
+                        <td>{{ fname }} </td>
+                      </tr>
+                      <tr>
+                        <td>Last Name:</td>
+                        <td>{{ lname }}</td>
+                      </tr>
+                      <tr>
+                        <td>email:</td>
+                        <td>{{ email }}</td>
+                      </tr>
+
+
+                      <tr>
+                        <td>address</td>
+                        <td>{{ address }}</td>
+                      </tr>
+
+                      <tr>
+                        <tr>
+                          <td>city:</td>
+                          <td>{{ city }}</td>
+                        </tr>
+
+                        <tr>
+                          <td>zip number:</td>
+                          <td>{{ zipnum }}</td>
+                        </tr>
+
+                        <tr>
+                          <td>Phone number</td>
+                          <td>{{ phonenum }}</td>
+                        </tr>
+
+
+
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                  <a href="../adoptApetApp/insertAd" class="btn btn-success">Insert Ad</a>
+                  <a href="../adoptApetApp/mypets" class="btn btn-success">My Pets</a>
+
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="panel-footer">
+              <a href="../adoptApetApp/createMessage" data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+              <span class="pull-right">
+                <a href="../adoptApetApp/editProfile" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+  </html>

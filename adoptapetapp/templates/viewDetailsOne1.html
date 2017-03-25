@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {% load staticfiles %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="{% static 'adoptApetApp/js/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'adoptApetApp/css/bootstrap.min.css' %}" type="text/css"/>
+    <script type="text/javascript" src="{% static 'adoptApetApp/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'adoptApetApp/mycss/viewDetailsOne1.css' %}" type="text/css"/>
+    <title>DetailsPage</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" a href="">Adopt Pet</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/adoptApetApp/"
+        <i class="glyphicon glyphicon-home"></i></a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Pets <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Dogs</a></li>
+            <li><a href="#">Bunnies</a></li>
+            <li><a href="#">Cats</a></li>
+            <li><a href="#">Birds</a></li>
+            <li><a href="#">Turtles</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Needs <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Medical Attention</a></li>
+            <li><a href="#">Shelters</a></li>
+            <li><a href="#">Accessory</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/adoptApetApp/createMessage">Create Message</a></li>
+            <li><a href="/adoptApetApp/dialogues">Dialogues</a></li>
+          </ul>
+        </li>
+      </ul>
+
+
+
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <a href="/adoptApetApp/Profile">Welcome {{user}}</a>
+        <a href="/adoptApetApp/logout"  class="btn btn-warning">Logout</a>
+        {%else%}
+        <li><a href="/adoptApetApp/signUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div class="modal-dialog">
+            <div class="loginmodal-container">
+              <h1>Login to Your Account</h1><br>
+              <form method="POST" action="/adoptApetApp/">
+                {% csrf_token %}
+                <input type="text" name="user" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+
+              </form>
+              <div class="login-help">
+                <a href="#">Forgot Password</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </ul>
+      {%endif%}
+      <form class="navbar-form navbar-left">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+         <div class="col-md-6">
+             <br>
+             <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                 <!-- Indicators -->
+                 <ol class="carousel-indicators">
+                     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                 </ol>
+
+                 <!-- Wrapper for slides -->
+                 <div class="carousel-inner" role="listbox">
+                     <div class="item active">
+                         <img src= '/adoptApetApp/media/{{ pet.photo }}' alt="Chania" width="460" height="345">
+                     </div>
+
+                     <!-- Left and right controls -->
+                     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                         <span class="sr-only">Previous</span>
+                     </a>
+
+                     <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                         <span class="sr-only">Next</span>
+                     </a>
+                 </div>
+             </div>
+
+             <div class="panel  panel-primary">
+               <div class="panel-heading">{{pet.name}}</div>
+                <div class="panel-body">{{pet.description}}</div>
+             </div>
+         </div>
+         <div class="col-md-5">
+             	<!-- PRICE ITEM -->
+					<div class="panel features panel-primary">
+						<div class="panel-heading  text-center">
+						<h3><strong>{{pet.name}}</strong></h3>
+						</div>
+						<ul class="list-group list-group-flush text-center">
+							<li class="list-group-item">
+                                <i class="icon-ok text-warning">
+                                    <img class="img-circle"src="{% static 'adoptApetApp/img/animal-paw-print.png' %}" alt="Generic placeholder image" width="50" height="50">
+                                </i><strong>{{pet.variety}}</strong></li>
+							<li class="list-group-item">
+                                <i class="icon-ok text-danger">
+                                    <img class="img-circle"src="{% static 'adoptApetApp/img/genders.png' %}" alt="Generic placeholder image" width="50" height="50">
+                                </i><strong>{{pet.gender}}</strong></li>
+                            <li class="list-group-item"><i class="icon-ok text-warning">
+                                <img class="img-circle"src="{% static 'adoptApetApp/img/circular-line-with-word-age-in-the-center.png' %}" alt="Generic placeholder image" width="50" height="50">
+                            </i><strong> {{pet.age}}</strong></li>
+                            <li class="list-group-item"><i class="icon-ok text-warning">
+                                <img class="img-circle"src="{% static 'adoptApetApp/img/weight-tool.png' %}" alt="Generic placeholder image" width="50" height="50">
+                            </i><strong> {{pet.weight}}</strong></li>
+							<li class="list-group-item">
+                                <i class="icon-ok text-warning">
+                                    <img class="img-circle"src="{% static 'adoptApetApp/img/locate-places-on-maps.png' %}" alt="Generic placeholder image" width="50" height="50">
+                                </i><strong>{{pet.address}}</strong></li>
+						</ul>
+						<div class="panel-footer">
+							<a class="btn btn-lg btn-block btn-primary" href="#">Available for Adaption!</a>
+						</div>
+					</div>
+
+
+    </div>
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>

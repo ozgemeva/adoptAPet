@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    {% load staticfiles %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="{% static 'adoptApetApp/js/jquery.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'adoptApetApp/css/bootstrap.min.css' %}" type="text/css"/>
+    <script type="text/javascript" src="{% static 'adoptApetApp/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'adoptApetApp/mycss/signUp.css' %}" type="text/css"/>
+    <title>homePage</title>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" a href="">Adopt Pet</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/adoptApetApp/"
+          <i class="glyphicon glyphicon-home"></i></a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Pets <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Dogs</a></li>
+              <li><a href="#">Bunnies</a></li>
+              <li><a href="#">Cats</a></li>
+              <li><a href="#">Birds</a></li>
+              <li><a href="#">Turtles</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Needs <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Medical Attention</a></li>
+              <li><a href="#">Shelters</a></li>
+              <li><a href="#">Accessory</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Messages<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/adoptApetApp/createMessage">Create Message</a></li>
+              <li><a href="/adoptApetApp/dialogues">Dialogues</a></li>
+            </ul>
+          </li>
+        </ul>
+
+
+
+
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <a href="/adoptApetApp/Profile">Welcome {{user}}</a>
+          <a href="/adoptApetApp/logout"  class="btn btn-warning">Logout</a>
+          {%else%}
+          <li><a href="/adoptApetApp/signUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="modal-dialog">
+              <div class="loginmodal-container">
+                <h1>Login to Your Account</h1><br>
+                <form method="POST" action="/adoptApetApp/">
+                  {% csrf_token %}
+                  <input type="text" name="user" placeholder="Username">
+                  <input type="password" name="password" placeholder="Password">
+                  <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+
+                </form>
+                <div class="login-help">
+                  <a href="#">Forgot Password</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </ul>
+        {%endif%}
+        <form class="navbar-form navbar-left">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+  </nav>
+<img src="{% static 'adoptApetApp/img/pets4.jpg' %}" alt=" " width="150" height="100"></div>
+<div class="container">
+
+	<div class="col-lg-12 well">
+	<div class="row">
+    <div class="row">
+    <!-- left column -->
+
+			<div class="col-sm-12">
+				<form method="POST" action = "../adoptApetApp/insertAd" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="col-md-3">
+            <div class="text-center">
+
+              <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+              <h6>Upload a photo...</h6>
+
+              <input name = "photo" type="file">
+            </div>
+          </div>
+					<div class="col-sm-12">
+						<div class="row">
+              <div class="col-sm-6 form-group">
+								<label>Pet Name</label>
+								<input type="text" name = "name" placeholder="Enter your pet name Here.." class="form-control">
+							</div>
+							<div class="col-sm-6 form-group">
+								<label>Pet Variety</label>
+								<input type="text" name = "variety"  placeholder="Enter your pet type.." class="form-control">
+							</div>
+							<div class="col-sm-6 form-group">
+								<label>Pet gender</label>
+								<input type="text" name = "gender" placeholder="Enter Last Name Here.." class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Pet Address</label>
+							<textarea name = "address" placeholder="Pet Address..." rows="3" class="form-control"></textarea>
+						</div>
+            <div class="form-group">
+              <label>Pet description</label>
+              <textarea name = "description" placeholder="Pet description..." rows="3" class="form-control"></textarea>
+            </div>
+						<div class="row">
+							<div class="col-sm-4 form-group">
+								<label>Pet weight</label>
+								<input type="text" name = "weight" placeholder="Enter weight..." class="form-control">
+							</div>
+							<div class="col-sm-4 form-group">
+								<label>Pet Age</label>
+								<input type="text" name= "age" placeholder="Enter your pet age here..." class="form-control">
+							</div>
+					<div class="form-group">
+					<button  type = "submit" class="btn btn-lg btn-info">Submit</button>
+					</div>
+				</form>
+				</div>
+	</div>
+	</div>
+</body>
+</html>

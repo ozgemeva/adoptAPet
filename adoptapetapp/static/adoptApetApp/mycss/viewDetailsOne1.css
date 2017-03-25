@@ -1,0 +1,35 @@
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+
+  }
+
+body {
+background-color:#34495e;
+
+}
+
+.features.panel-primary>.panel-heading {
+    color: #fff;
+    border-color: white;
+    border-bottom: 1px solid white;
+}
+
+.panel.features>.panel-heading {
+    box-shadow: 0px 5px 0px rgba(50,50,50, .2) inset;
+    text-shadow: 0px 3px 0px rgba(50,50,50, .6);
+}
+
+
+.panel-primary {
+    border-color: #337ab7;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-top: 20px;
+
+}
